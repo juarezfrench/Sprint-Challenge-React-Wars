@@ -1,64 +1,134 @@
-import React, {useState, useEffect} from 'react';
-import axios from "axios"
-import CharacterCard from "./CharacterCard"
+
+import React from 'react';
+import axios from "axios";
+import styled from 'styled-components';
+// import CharacterCard from "./CharacterCard"
 import './App.css';
 
-const App = (props) => {
 
-  let [data, setData] = useState([]);
+function App(card) {
+  let [data, setData] =useState([]);
+  
+
+  console.log('PhotoCard.js -> %cwhere?:', 'color: green', 'Top')
+
   useEffect(() => {
- 
-    console.log("first render");
-    axios.get(
-      "https://swapi.co/api/people/1/")
-      .then(res => {
-       console.log(res.data);
-        let data = Object.entries(res.data)
 
-        setData(data);
-        // console.log('App.js -> %cres.data.results:', 'color: green', res.data.results)
-        // console.log('App.js -> %cdata:', 'color: red', data)
-        // console.log('App.js -> %cindex:', 'color: teal', data.index)
-      })
-      
-     
-    }, []);
+  axios
+.get("https://swapi.co/api/people/")
 
-    //  console.log('App.js -> %cdata:', 'color: red', data)
-    //  console.log('PhotoCard.js -> %cprops.eye_color:', 'color: indigo', data.eye_color)
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
+ .then (res => {
+console.log('App.js -> %cres:', 'color: MediumBlue', res)
 
-  // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
+ setData(res.data.results)
+// console.log('App.js -> %csetData:', 'color: navy', setData)
+
+ })
+.catch(err => {
+console.error('App.js -> %c Problem getting data - check this: ', 'color: Fuchsia', err )
+
+  
+})
+
+
+ }, [])
+ if(!data) return <h1 className="loadingText">Loading...</h1>
+
 
   return (
     
     <section className="cardContainer">
+          
     <h1 className="Header">React Wars</h1>
-    <div className="App">{
- 
-      data.map(cardData => 
-        <div>
-          <CharacterCard key={cardData.name} title={data.name}
-           height={Math.round(cardData.height*.0328084)} 
-           hair = {cardData.hair_color}
-           eyes = {cardData.eye_color}
-           birthYear = {cardData.birth_year} />
-        
-        </div>)
-  }
+    <div className="cardMap">
+  
+      {data.map(card => {
+  
+       
+
+  return <CharacterCard>
+		
+    
+ 			<div>
+       <Name>{card.name} </Name>
+       <Intro className="intro"> About {card.name} </Intro>
+       
+       <BirthYear className = "BirthYear">Near as we can tell, {card.name} was born or came into being on {card.birth_year}
+       </BirthYear>
+       
+      
+       
+       <Content className="height">
+
+          {card.name} is about {Math.round(card.height*.0328084)} feet tall.
+
+      </Content>
+    
+      </div>
+ 		
+ 			</CharacterCard>
+      })}
+      
     </div>
     </section>
-    
+  
 
-)
-}
+
+
+)}
      
 export default App
+// console.log('App.js -> %cApp:', 'color: DarkCyan', App)
 
+const Name = styled.p`
+
+   display: flex;
+   justify-content: center;   
+ 
+  color: DimGray;
+  font-family: Baskerville;
+  text-transform: uppercase;
+  font-size: large;
+`;
+
+
+const BirthYear=styled.p`
+font-size="medium;
+display: flex;
+justify-content: center;   
+color: DimGray;
+text-transform: uppercase;
+font-family: Baskerville;
+`
+
+const Intro=styled.p`
+text-align: center;
+color: DimGray;
+text-transform: uppercase;
+font-weight: bold;
+font-family: 'League Spartan Bold';
+    font-weight:normal;
+    font-style:normal;
+`
+
+
+const Content=styled.p `
+text-align: center;
+color: Gray;
+text-align: left;
+margin: 0 5% 0 5%;
+padding-bottom: 5%;
+
+`
+const CharacterCard = styled.div `
+
+display:flex;
+flex-direction: column;
+justify-content: center;
+background: Black;
+margin: 2% 10% 0% 10%;
+
+`
 
 
   
-
