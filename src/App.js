@@ -80,19 +80,26 @@ export default App
 
 
 const Container = styled.div `
-display: grid;
+margin: 0 10% 0 30%;
+align-contents: center;
 grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: auto;
+grid-gap: 10px;
 
+color: #444;
 
 `
 const Card = styled.div`
-// display: inline-flexbox;
-// width: 30%;
+
+width: 60%;
 color: MidnightBlue;
 background: #50B4D8;
 opacity: .8;
 border: 2px solid Gray;
+border-radius: 5px;
+padding: 0 0 0 5% ;
+  // padding: 20px;
+
+  
   
 `;
 
