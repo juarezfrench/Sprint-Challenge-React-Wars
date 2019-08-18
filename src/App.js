@@ -2,16 +2,33 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import './App.css'
 
 
-import './App.css';
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+
+    control: {
+      padding: theme.spacing(2),
+    },
+  }
+}));
 
 
 function App(card) {
   let [data, setData] =useState([]);
+  const classes = useStyles();
   
-
-  console.log('PhotoCard.js -> %cwhere?:', 'color: green', 'Top')
+   console.log('PhotoCard.js -> %cwhere?:', 'color: green', 'Top')
 
   useEffect(() => {
 
@@ -35,10 +52,16 @@ console.error('App.js -> %c Problem getting data - check this: ', 'color: Fuchsi
  }, [])
  if(!data) return <h1 className="loadingText">Loading...</h1>
 
+ 
+
+
 
   return (
     
     <section className="cardContainer">
+
+
+      
           
     <Title className="Header">React Wars</Title>
     <div className="cardMap">
@@ -47,11 +70,11 @@ console.error('App.js -> %c Problem getting data - check this: ', 'color: Fuchsi
   
        
 
-  return  <Container>
-     
-        <Card>
-        <Content>
-
+  return <Grid container spacing={3}>
+   
+    
+        <Grid item xs>
+           <Paper className={classes.paper}>
        <Name>{card.name} </Name>
        <Intro className="intro"> About {card.name} </Intro>
    
@@ -60,11 +83,10 @@ console.error('App.js -> %c Problem getting data - check this: ', 'color: Fuchsi
       
 
          <Height> {card.name} is about {Math.round(card.height*.0328084)} feet tall</Height>
-         
-      </Content>
-      </Card>
-     
-      </Container>
+         </Paper>
+         </Grid>
+  
+</Grid>
       })}
 
     </div>
@@ -79,29 +101,21 @@ export default App
 // console.log('App.js -> %cApp:', 'color: DarkCyan', App)
 
 
-const Container = styled.div `
-margin: 0 10% 0 30%;
-align-contents: center;
-grid-template-columns: 1fr 1fr 1fr;
-grid-gap: 10px;
+// const Container = styled.div `
+// margin: 0 10% 0 30%;
+// align-contents: center;
+// columns={columns}
+//   rowGetter={i => rows[i]}
+//   rowsCount={3}
+// grid-gap: 1rem;
 
-color: #444;
 
-`
-const Card = styled.div`
+// color: #4444;
 
-width: 60%;
-color: MidnightBlue;
-background: #50B4D8;
-opacity: .8;
-border: 2px solid Gray;
-border-radius: 5px;
-padding: 0 0 0 5% ;
-  // padding: 20px;
+// `
 
-  
-  
-`;
+
+
 
 const Title = styled.h1`
 
@@ -109,18 +123,16 @@ const Title = styled.h1`
       font-size: 4.5em; 
   color: #767676;
   font-family: Baskerville;
-  text-transform: uppercase;
+  text-transform: uppercase;const Card = styled.div
   
-`;
-
-
+`
 
 const Name = styled.h1`
 
       
   color: #ff0000;
   font-family: Baskerville;
-  text-transform: uppercase;
+  text-transform: uppercase;yarn add @material-ui/core
 
 `;
 
@@ -155,14 +167,7 @@ font-family: 'League Spartan Bold';
 `
 
 
-const Content=styled.p `
 
-color: Gray;
-text-align: left;
-margin: 0 5% 0 5%;
-padding-bottom: 5%;
-
-`
 // const CharacterCard = styled.div `
 
 // display:flex;
